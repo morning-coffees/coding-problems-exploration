@@ -25,7 +25,7 @@ class HealthcheckController {
 	List<String> validHealthCheck = List.of("short", "full");
 
     @GetMapping(value = "/healthcheck")
-    public ResponseEntity<?> healthcheck(@RequestParam(value = "format") String format) throws JsonProcessingException {
+    public ResponseEntity<Object> healthcheck(@RequestParam(value = "format") String format) throws JsonProcessingException {
     	if (!isValidFormat(format)) {
         	String errorMessage = "Invalid format query parameter value: " + format;
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -73,6 +73,7 @@ class HealthCheckResponse {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonProperty("currentTime")
     private LocalDateTime currentTime;
+    
     public HealthCheckResponse(String status) {
         this.status = status;
     }
@@ -90,7 +91,7 @@ class HealthCheckResponse {
         this.status = status;
     }
     
-    public LocalDateTime getCurrenTime() {
+    public LocalDateTime getCurrentTime() {
         return currentTime;
     }
 
